@@ -26,7 +26,7 @@ namespace DatabaseAPIs.Backend
         }
         private BookDatabase()
         {
-            Books = LoadData();
+            Books = LoadBooks();
         }
 
 
@@ -46,16 +46,16 @@ namespace DatabaseAPIs.Backend
             using (SqlCommand cmd = con.CreateCommand())
             {
                 cmd.CommandText = String.Format(
-                    "insert into BooksCollection (Author, Title, Category, ISBN, Image, Rating, Format, Price, OldPrice) values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}')",
-                    book.Author, book.Title, book.Category, book.ISBN, book.Image, book.Rating, book.Format, book.Price, book.OldPrice
+                    "insert into BooksCollection (Author, Title, CatID, ISBN, Image, Rating, Format, Price, OldPrice, SubID) values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
+                    book.Author, book.Title, book.CatID, book.ISBN, book.Image, book.Rating, book.Format, book.Price, book.OldPrice, book.SubID
                     );
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
             Books.Add(book);
             return String.Format(
-                "Successfully added book! Author: {0} Title: {1} Category: {2} ISBN: {3} Date: {4}", 
-                book.Author, book.Title, book.Category, book.ISBN, book.Image, book.Rating, book.Format, book.Price, book.OldPrice 
+                "Successfully added book! Author: {0} Title: {1} CatID: {2} ISBN: {3} Date: {4}", 
+                book.Author, book.Title, book.CatID, book.ISBN, book.Image, book.Rating, book.Format, book.Price, book.OldPrice 
                 );
         }
 
@@ -65,16 +65,16 @@ namespace DatabaseAPIs.Backend
             using (SqlCommand cmd = con.CreateCommand())
             {
                 cmd.CommandText = String.Format(
-                    "update BooksCollection set Author='{0}', Title='{1}', Category='{2}', ISBN='{3}', Image='{4}', Rating='{5}', Format='{6}', Price='{7}', OldPrice='{8}' where ISBN='{3}'",
-                    book.Author, book.Title, book.Category, book.ISBN, book.Image, book.Rating, book.Format, book.Price, book.OldPrice
+                    "update BooksCollection set Author='{0}', Title='{1}', CatID='{2}', ISBN='{3}', Image='{4}', Rating='{5}', Format='{6}', Price='{7}', OldPrice='{8}' SubID='{9}' where ISBN='{3}'",
+                    book.Author, book.Title, book.CatID, book.ISBN, book.Image, book.Rating, book.Format, book.Price, book.OldPrice, book.SubID
                     );
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
-            Books = LoadData();
+            Books = LoadBooks();
             return String.Format(
-                "Successfully updated book! Author: {0} Title: {1} Category: {2} ISBN: {3} Price: {8}",
-                book.Author, book.Title, book.Category, book.ISBN, book.Image, book.Rating, book.Format, book.Price, book.OldPrice
+                "Successfully updated book! Author: {0} Title: {1} CatID: {2} ISBN: {3} Price: {8}",
+                book.Author, book.Title, book.CatID, book.ISBN, book.Image, book.Rating, book.Format, book.Price, book.OldPrice
                 );
         }
 

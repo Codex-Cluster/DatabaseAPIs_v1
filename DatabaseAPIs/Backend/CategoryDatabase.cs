@@ -12,7 +12,8 @@ namespace DatabaseAPIs.Backend
 {
     public class CategoryDatabase: DataLoadLogic, ICategoryDatabase
     {
-        public List<Book> Books = new List<Book>();
+        public List<Category> Categories = new List<Category>();
+        public List<SubCategory> SubCategories = new List<SubCategory>(); 
         private static CategoryDatabase Instance = null;
         public static CategoryDatabase instantiateDB()
         {
@@ -24,18 +25,19 @@ namespace DatabaseAPIs.Backend
         }
         private CategoryDatabase()
         {
-            Books = LoadData();
+            Categories = LoadCategories();
+            SubCategories = LoadSubcategories();
         }
 
         public List<string> GetCategories()
         {
-            return Books.Select(x => x.Category).Distinct().ToList();
+            return Categories.Select(x => x.CatName).ToList();
 
         }
 
-        public List<Book> GetDataByCategory(string category)
+        public List<SubCategory> GetSubCategories(string CatID)
         {
-            return Books.FindAll(x => x.Category == category);
+            return SubCategories.FindAll(x => x.CatID == CatID);
         }
     }
 }

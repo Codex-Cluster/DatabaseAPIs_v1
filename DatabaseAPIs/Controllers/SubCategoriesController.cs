@@ -13,16 +13,16 @@ using DatabaseAPIs.Models;
 namespace DatabaseAPIs.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class CategoriesController : ApiController
+    public class SubCategoriesController : ApiController
     {
-        CategoryDatabase db = CategoryDatabase.instantiateDB();
+        SubCategoryDatabase db = SubCategoryDatabase.instantiateDB();
 
         [HttpGet]
         public HttpResponseMessage GetData()
         {
             try
             {
-                List<string> data = db.GetCategories();
+                List<string> data = db.GetSubCategories();
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception e)
@@ -31,11 +31,11 @@ namespace DatabaseAPIs.Controllers
             }
         }
         [HttpGet]
-        public HttpResponseMessage GetData(string CatID)
+        public HttpResponseMessage GetData(string SubID)
         {
             try
             {
-                List<SubCategory> data = db.GetSubCategories(CatID);
+                List<Book> data = db.GetBooks(SubID);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception e)

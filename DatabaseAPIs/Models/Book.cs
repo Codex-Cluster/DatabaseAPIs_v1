@@ -15,6 +15,7 @@ namespace DatabaseAPIs.Models
         public double Price { get; set; }
         public double OldPrice { get; set; }
         public string ISBN { get; set; }
-        public string Category { get; set; }
+        public string SubID { get; set; }
+        public string CatID { get; set; }
     }
 }
